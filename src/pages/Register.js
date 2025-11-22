@@ -169,7 +169,11 @@ export default function Register() {
           formDataToSend.append('foto_perfil', formData.profilePhoto);
         }
 
-        const response = await fetch('http://localhost:8000/api/usuarios/registro/', {
+        // Usar variable de entorno en lugar de localhost
+        const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+        const backendUrl = API_BASE_URL.replace('/api', ''); // Remover /api del final si existe
+
+        const response = await fetch(`${backendUrl}/api/usuarios/registro/`, {
           method: 'POST',
           body: formDataToSend,
         });
@@ -210,8 +214,12 @@ export default function Register() {
         setLoading(true);
         console.log('🔄 Intentando registro con Google...');
         
+        // Usar variable de entorno en lugar de localhost
+        const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+        const backendUrl = API_BASE_URL.replace('/api', ''); // Remover /api del final si existe
+        
         // Enviar el token de Google al backend
-        const result = await fetch('http://localhost:8000/api/usuarios/google-login/', {
+        const result = await fetch(`${backendUrl}/api/usuarios/google-login/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
