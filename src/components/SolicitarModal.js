@@ -17,7 +17,9 @@ export default function SolicitarModal({ isOpen, onClose, servicio }) {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8000/api/solicitudes/', {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+      
+      const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/solicitudes/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

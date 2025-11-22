@@ -124,9 +124,8 @@ export default function Perfil() {
     try {
       console.log('🔄 Actualizando perfil...');
 
-      const data = await authAPI.getCurrentUser(); // Primero obtener datos actuales
+      const data = await authAPI.getCurrentUser();
       
-      // Actualizar con los datos del formulario
       const updatedData = {
         ...data,
         nombre: formData.nombre,
@@ -137,9 +136,10 @@ export default function Perfil() {
         descripcion: formData.descripcion
       };
 
-      // Usar fetch para PUT ya que authAPI no tiene método actualizar
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8000/api/usuarios/me/', {
+      
+      const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/usuarios/me/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

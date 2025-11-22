@@ -49,8 +49,9 @@ export default function Mensajes() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      // Consultamos TODAS las solicitudes
-      const response = await fetch('http://localhost:8000/api/solicitudes/', {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+      
+      const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/solicitudes/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -114,7 +115,9 @@ export default function Mensajes() {
   // Función para Responder (Aceptar/Rechazar)
   const handleResponse = async (id, decision) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/solicitudes/${id}/responder/`, {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+      
+      const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/solicitudes/${id}/responder/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +150,9 @@ export default function Mensajes() {
 
     try {
       setIsSending(true);
-      const response = await fetch('http://localhost:8000/api/chat/enviar/', {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+      
+      const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/chat/enviar/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -183,7 +188,9 @@ export default function Mensajes() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/solicitudes/${id}/`, {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+      
+      const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/solicitudes/${id}/`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -223,7 +230,9 @@ export default function Mensajes() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/solicitudes/${id}/finalizar/`, {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+      
+      const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/solicitudes/${id}/finalizar/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

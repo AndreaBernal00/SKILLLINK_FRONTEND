@@ -37,7 +37,9 @@ export default function Home() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/servicios/publicos/');
+        const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+        
+        const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/servicios/publicos/`);
         if (!response.ok) throw new Error('Error al cargar servicios');
         const data = await response.json();
         const listaServicios = data.results ? data.results : data;
@@ -46,7 +48,7 @@ export default function Home() {
         // Obtener disponibilidades de todos los trabajadores
         let disponibilidadesMap = {};
         try {
-          const dispResponse = await fetch('http://localhost:8000/api/disponibilidad/publico/');
+          const dispResponse = await fetch(`${API_BASE_URL.replace('/api', '')}/api/disponibilidad/publico/`);
           if (dispResponse.ok) {
             const dispData = await dispResponse.json();
             const dispList = dispData.results ? dispData.results : dispData;

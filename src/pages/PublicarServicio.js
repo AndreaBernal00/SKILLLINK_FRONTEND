@@ -62,9 +62,11 @@ const handleSubmit = async (e) => {
     if (validateForm()) {
       setLoading(true);
       try {
-        console.log("Enviando token:", token); // Para depuración
+        console.log("Enviando token:", token);
 
-        const response = await fetch('http://localhost:8000/api/servicios/', {
+        const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+
+        const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/servicios/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
